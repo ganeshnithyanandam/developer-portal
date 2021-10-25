@@ -83,17 +83,17 @@ The variable needs to hold the absolute path to the socket file of your running 
 If you're unsure or do not know where to find your socket path, please check the command on how you start/run your Cardano node.  
 For example - if you start your node with this command
 ```bash
-/home/user/.local/bin/cardano-node run \
+$HOME/.local/bin/cardano-node run \
  --topology config/testnet-topology.json \
  --database-path db \
- --socket-path /home/user/TESTNET_NODE/socket/node.socket \
+ --socket-path $HOME/TESTNET_NODE/socket/node.socket \
  --port 3001 \
  --config config/testnet-config.json
 ```
 You need to set the variable to the corresponding path of the `--socket-path` parameter:
 
 ```bash
-export CARDANO_NODE_SOCKET_PATH="/home/user/TESTNET_NODE/socket/node.socket"
+export CARDANO_NODE_SOCKET_PATH="$HOME/TESTNET_NODE/socket/node.socket"
 ```
 You need to adjust the path on your setup and your socket path accordingly.
 
@@ -348,7 +348,7 @@ Just be sure to reference the correct filename in upcoming commands. I chose to 
 Based on this raw transaction we can calculate the minimal transaction fee and store it in the variable <i>$fee</i>. We get a bit fancy here and only store the value so we can use the variable for terminal based calculations:
 
 ```bash
-fee=$(cardano-cli transaction calculate-min-fee --tx-body-file matx.raw --tx-in-count 1 --tx-out-count 1 --witness-count 1 --$testnet --protocol-params-file protocol.json | cut -d " " -f1)
+fee=$(cardano-cli transaction calculate-min-fee --tx-body-file matx.raw --tx-in-count 1 --tx-out-count 1 --witness-count 2 --$testnet --protocol-params-file protocol.json | cut -d " " -f1)
 ```
 
 Remember, the transaction input and the output of ada must be equal, or otherwise, the transaction will fail. There can be no leftovers.
@@ -553,7 +553,7 @@ As usual, we need to calculate the fee.
 To make a better differentiation, we named the variable <i>burnfee</i>:
 
 ```bash
-burnfee=$(cardano-cli transaction calculate-min-fee --tx-body-file burning.raw --tx-in-count 1 --tx-out-count 1 --witness-count 1 --$testnet --protocol-params-file protocol.json | cut -d " " -f1)
+burnfee=$(cardano-cli transaction calculate-min-fee --tx-body-file burning.raw --tx-in-count 1 --tx-out-count 1 --witness-count 2 --$testnet --protocol-params-file protocol.json | cut -d " " -f1)
 ```
 
 Calculate the correct output value
